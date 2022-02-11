@@ -1,0 +1,74 @@
+{
+  "root": "apps/test-react-express-app",
+  "sourceRoot": "apps/test-react-express-app/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/test-react-express-app",
+        "index": "apps/test-react-express-app/src/index.html",
+        "baseHref": "/",
+        "main": "apps/test-react-express-app/src/main.tsx",
+        "polyfills": "apps/test-react-express-app/src/polyfills.ts",
+        "tsConfig": "apps/test-react-express-app/tsconfig.app.json",
+        "assets": [
+          "apps/test-react-express-app/src/favicon.ico",
+          "apps/test-react-express-app/src/assets"
+        ],
+        "styles": ["apps/test-react-express-app/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/test-react-express-app/src/environments/environment.ts",
+              "with": "apps/test-react-express-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "test-react-express-app:build",
+        "hmr": true,
+        "proxyConfig": "apps/test-react-express-app/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "test-react-express-app:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/test-react-express-app/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/test-react-express-app"],
+      "options": {
+        "jestConfig": "apps/test-react-express-app/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
